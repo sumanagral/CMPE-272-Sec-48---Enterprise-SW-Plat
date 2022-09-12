@@ -1,0 +1,18 @@
+- hosts: all
+  become: true
+  become_method: sudo
+  tasks:
+  - name: stop apache2 service
+    service:
+      name: apache2
+      state: stopped
+      enabled: no
+  - name: uninstall apache2
+    apt:
+      name: apache2
+      state: absent
+      purge: yes
+      force: yes
+      autoremove: yes
+    with_items:
+      -apache2*
